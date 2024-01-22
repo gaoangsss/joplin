@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title></title>
+        <link>undefined</link>
+        <description>undefined</description>
+        <lastBuildDate>Mon, 22 Jan 2024 09:01:02 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>Joplin Pages Publisher</generator>
+        <item>
+            <title><![CDATA[5期2]]></title>
+            <guid>925de81149894dbeb0b1088cee920276</guid>
+            <pubDate>Mon, 22 Jan 2024 03:21:36 GMT</pubDate>
+            <content:encoded><![CDATA[<p>教师开放时间调整</p>
+<ul>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-3" /><label id="cb-label-md-checkbox-3" for="md-checkbox-3" class="checkbox-label-unchecked">列表项</label></div></li>
+</ul>
+]]></content:encoded>
+        </item>
+    </channel>
+</rss>
