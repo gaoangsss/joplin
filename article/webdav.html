@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<link rel="stylesheet" href="/_assets/main.css" />
+
+    <title>使用宝塔搭建WebDav - 叶雨梧桐 - 公开的笔记</title>
+  <link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
+  <body>
+    <div class="main">
+      <nav class="navigation">
+        <a href="/">公开的笔记</a>
+      </nav>
+      <article>
+        <header>
+          <h1 class="article-title">使用宝塔搭建WebDav - 叶雨梧桐</h1>
+          <div class="article-info">
+            <div>
+              <span
+                >Created At：<time datetime="1704965160000"
+                  >2024-01-11 17:26</time
+                ></span
+              >
+              <span
+                >Updated At：<time datetime="1704965691767"
+                  >2024-01-11 17:34</time
+                ></span
+              >
+            </div>
+            
+          </div>
+        </header>
+        <div class="article-content markdown-body"><ol>
+<li><a title="#%E5%9C%BA%E6%99%AF" href="#%E5%9C%BA%E6%99%AF">场景</a></li>
+<li><a title="#%E6%AD%A5%E9%AA%A4" href="#%E6%AD%A5%E9%AA%A4">步骤</a></li>
+</ol>
+<h3 id="场景">场景</h3>
+<p>手里有一部分书的音频素材，利用碎片化时间收听。原本计划是自己写个小工具，朋友推荐EverPlay这个App后爱不释手。为了减少手机空间的占用，遂搭配自建WebDav来使用。</p>
+<h3 id="步骤">步骤</h3>
+<p>1.安装宝塔，选择安装nginx【极速，编译均可】</p>
+<p>2.查看nginx是否支持dav 。执行nginx -V 查看是否存在 nginx-dav-ext-module<br />
+默认是存在的，如下</p>
+<div><pre class="hljs"><code>[root@VM-12-10-centos ~]<span class="hljs-comment"># nginx -V</span>
+nginx <span class="hljs-keyword">version</span>: nginx/1.21.0
+built by gcc 8.3.1 20191121 <span class="hljs-params">(Red Hat 8.3.1-5)</span> <span class="hljs-params">(GCC)</span> 
+built with OpenSSL 1.1.1k  25 Mar 2021
+TLS SNI support enabled
+configure arguments: <span class="hljs-params">--user=www</span> <span class="hljs-params">--group=www</span> <span class="hljs-params">--prefix=/www/server/nginx</span> <span class="hljs-params">--add-module=srclib/ngx_devel_kit</span> <span class="hljs-params">--add-module=srclib/lua_nginx_module</span> <span class="hljs-params">--add-module=srclib/ngx_cache_purge</span> <span class="hljs-params">--add-module=srclib/nginx-sticky-module</span> <span class="hljs-params">--with-openssl=srclib/openssl</span> <span class="hljs-params">--with-pcre=srclib/pcre-8</span>.43 <span class="hljs-params">--with-http_v2_module</span> <span class="hljs-params">--with-stream</span> <span class="hljs-params">--with-stream_ssl_module</span> <span class="hljs-params">--with-stream_ssl_preread_module</span> <span class="hljs-params">--with-http_stub_status_module</span> <span class="hljs-params">--with-http_ssl_module</span> <span class="hljs-params">--with-http_image_filter_module</span> <span class="hljs-params">--with-http_gzip_static_module</span> <span class="hljs-params">--with-http_gunzip_module</span> <span class="hljs-params">--with-ipv6</span> <span class="hljs-params">--with-http_sub_module</span> <span class="hljs-params">--with-http_flv_module</span> <span class="hljs-params">--with-http_addition_module</span> <span class="hljs-params">--with-http_realip_module</span> <span class="hljs-params">--with-http_mp4_module</span> <span class="hljs-params">--with-ld-opt=-Wl</span>,-E <span class="hljs-params">--with-cc-opt=-Wno-error</span> <span class="hljs-params">--with-http_dav_module</span> <span class="hljs-params">--add-module=srclib/nginx-dav-ext-module</span></code></pre></div>
+<p>3.新建静态站点后，修改配置文件【网站列表--该站点--设置--配置文件】，新增</p>
+<div><pre class="hljs"><code>    <span class="hljs-section">location</span> / {
+        <span class="hljs-attribute">root</span> /www/wwwroot/gt520.com;<span class="hljs-comment">#这里写你webdav的路径</span>
+        <span class="hljs-attribute">client_max_body_size</span> <span class="hljs-number">102400M</span>;<span class="hljs-comment">#大文件支持</span>
+        <span class="hljs-attribute">autoindex</span> <span class="hljs-literal">on</span>;
+        <span class="hljs-attribute">dav_methods</span> PUT DELETE MKCOL COPY MOVE;
+        <span class="hljs-comment"># 需要 nginx-dav-ext-module 才有下面的选项</span>
+        <span class="hljs-attribute">dav_ext_methods</span> PROPFIND OPTIONS LOCK UNLOCK;
+        <span class="hljs-attribute">create_full_put_path</span>  <span class="hljs-literal">on</span>;
+    }</code></pre></div>
+<p>4.设置此站点webdav模式的账户密码【网站列表--该站点--设置--网站目录--密码访问】</p>
+<p>5.齐活，happy吧</p>
+</div>
+      </article>
+    </div>
+  </body>
+</html>
